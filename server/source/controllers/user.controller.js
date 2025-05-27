@@ -1,39 +1,80 @@
 import * as users_service   from '#services/user.service.js'
 
-export function getAllUsers(request, response)
+export async function getAllUsers(request, response)
 {
-
+    try
+    {
+        const users = await users_service.getAllUsers();
+        response.status(201).json(users)
+    }
+    catch(error)
+    {
+        response.status(500).json({ error: "Get all users failed" })
+    }
 }
 
-export function getUser(request, response)
+export async function getUser(request, response)
 {
-
+    const { id } = request.params
+    
+    try 
+    {
+        await users_service.getUser(Number(id))
+        response.status(201).json(user)
+    }
+    catch(error)
+    {
+        response.status(500).json({ error: 'Get user failed' })
+    }
 }
 
 
 export async function createUser(request, response)
 {
-    const { name, email, age } = request.body
+    const { email, password } = request.body
+
     try 
     {
-        const user = await users_service.createUser({name, email, age});
-        response.status(201).json(user);
+        await users_service.createUser({ email, password });
+        response.status(201)
     } 
     catch (error) 
     {
-        response.status(500).json({ error: 'Creat user failed'})
+        response.status(500).json({ error: 'Create user failed' })
     }
 
 
     }
 
-export function deleteUser(request, response)
+export async function deleteUser(request, response)
 {
+    const { id } = request.params
 
+    try
+    {
+        await users_service.deleteUser({ id })
+        response.status(201)
+    }
+    catch(error)
+    {
+        response.status(500).json({ error: "Delete user failed" })
+    }
 }
 
-export function updateUser(request, response)
+export async function updateUser(request, response)
 {
+    const { email, password, username } = request.body
+    
+    try 
+    {
+        await users_service.updateUser({ email, password, username })
+        response.status(201)
+    }
+    catch (error)
+    {
+        console.log(error)
+        response.status(500).json({ error: "Update user failed" })    
+    }
 
 }
 

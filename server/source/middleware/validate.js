@@ -2,7 +2,7 @@
 // test validation
 export function userData(request, response, next) 
 {
-    const requiredFields    = ['name', 'email', 'age']
+    const requiredFields    = ["email", "username", "password"]
     const missingValue      = requiredFields.filter(field => !Object.keys(request.body).includes(field));
 
     if (missingValue.length > 0) 

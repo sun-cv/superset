@@ -1,16 +1,61 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE")
 }
 
-model users {
-  id        Int      @id @default(autoincrement())
-  email     String   
-  name      String?
-  age       String?
-  createdAt DateTime @default(now())
+generator client {
+  provider = "prisma-client-js"
 }
+
+model users {
+  uid       Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  username  String?
+  created   DateTime @default(now())
+
+  profiles        profile[]
+  exercise_custom exercise_custom?
+  food_custom     food_custom?
+}
+
+model profile {
+  id     Int    @id @default(autoincrement())
+  uid    Int    @unique
+  name   String
+  birth  String
+  gender String
+  height Int
+  weight Int?
+  created   DateTime @default(now())
+
+  user users @relation(fields: [uid], references: [uid])
+}
+
+model exercise_global {
+  id Int @id @default(autoincrement())
+}
+
+model exercise_custom {
+    id  Int @id @default(autoincrement())
+    uid Int @unique
+    created   DateTime @default(now())
+
+
+  user users @relation(fields: [uid], references: [uid])
+}
+
+model food_global {
+  id Int @id @default(autoincrement())
+}
+
+model food_custom {
+    id  Int @id @default(autoincrement())
+    uid Int @unique
+    created   DateTime @default(now())
+
+
+  user users @relation(fields: [uid], references: [uid])
+}
+
+
