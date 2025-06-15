@@ -9,5 +9,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "types/user.tx", "styles/sizings/logo.js", "styles/colors/app.js"  ],
+, "types/user.tx", "styles/sizings/logo.js", "styles/colors/app.js", "data/options/dateSelectOptions.js", "data/options/select/optionDate.ts"  ],
 }

@@ -72,8 +72,7 @@ export async function updateUser(request, response)
     }
     catch (error)
     {
-        console.log(error)
-        response.status(500).json({ error: "Update user failed" })    
+        
     }
 
 }
